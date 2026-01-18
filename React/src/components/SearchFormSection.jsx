@@ -1,0 +1,56 @@
+function SearchFormSection() {
+    return (
+        <section className="jobs-search">
+            <h1>Encuentra tu próximo trabajo</h1>
+            <p>Explora miles de oportunidades en el sector tecnológico.</p>
+
+            <form id="empleos-search-form" role="search" >
+                <div>
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  
+                    strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" 
+                    d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+                    <input id="empleos-search-input" name="search" required type="text" placeholder="Buscar trabajos, empresas o habilidades"/>
+                </div>
+                <div className="search-filters">
+                    <select name="technology" id="filter-technology">
+                        <option value="">Tecnologia</option>
+                        <optgroup label="Tecnologías populares">
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                            <option value="React">React</option>
+                            <option value="Node.js">Node.js</option>
+                        </optgroup>
+                        <hr/>
+                        <option value="Java">Java</option>
+                        <option value="C#">C#</option>
+                        <option value="C">C</option>
+                        <option value="C++">C++</option>
+                        <option value="PHP">PHP</option>
+                        <option value="Ruby">Ruby</option>
+                        <option value="Mobile">Mobile</option>
+                    </select>
+                    <select name="location" id="filter-location">
+                        <option value="">Ubicación</option>
+                        <option value="Remoto">Remoto</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Chile">Chile</option>
+                        <option value="Espana">España</option>
+                        <option value="Estados Unidos">Estados Unidos</option>
+                        <option value="cdmx">Ciudad de México</option>
+                    </select>
+                    <select name="experience-level" id="filter-experience-level">
+                    <option value="">Nivel de experiencia</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Mid-level">Mid-level</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Lead">Lead</option>
+                    </select>
+                </div>
+            </form>
+
+            <span id="filter-selected-value"></span>
+        </section>
+    )
+}
+
+export default SearchFormSection
