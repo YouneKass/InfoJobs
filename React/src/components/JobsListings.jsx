@@ -1,11 +1,14 @@
-function JobsListings() {
+import { JobCard } from "./JobCard.jsx";
+
+export function JobsListings({jobs}) {
     return(
         <>
             <h2>Resultados de búsqueda</h2>
             <div className="jobs-listings">
-                {/* Aqui estaran los empleos dinamicamente */}
+                {jobs.map(job =>(
+                    <JobCard key={job.id} job={job} />
+                ))}
             </div>
         </>
     )
 }
-export default JobsListings

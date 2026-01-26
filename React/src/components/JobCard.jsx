@@ -1,24 +1,17 @@
-function JobCard({ job }) {
-  // extraemos las propiedades del objeto job
-    const { title, company, location, salary, description, tags } = job
-
+export function JobCard({ job }) {
     return (
-        <article className="job-card">
-            <header className="job-card-header">
-                <h3 className="job-title">{title}</h3>
-                <p className="job-company">{company}</p>
-            </header>
-            <div className="job-card-body">
-                <p className="job-location">{location}</p>
-                <p className="job-salary">{salary}</p>
-                <p className="job-description">{description}</p>
+        <article 
+            className="job-listing-card"
+            data-modalidad={job.data.modalidad}
+            data-nivel={job.data.nivel}
+            data-technology={job.data.technology}
+            >
+            <div>
+                <h3>{job.titulo}</h3>
+                <small>{job.empresa} | {job.ubicacion}</small>
+                <p>{job.descripcion}</p>
             </div>
-            <footer className="job-card-footer">
-                <span className="job-tags">{tags.join(', ')}</span>
-                <button className="btn-apply">Aplicar</button>
-            </footer>
+            <button className="button-apply-job">Aplicar</button>
         </article>
     )
 }
-
-export default JobCard

@@ -1,4 +1,4 @@
-function Header() {
+export function Header() {
     return(
         <header>
             <h2>DevJobs</h2>
@@ -14,5 +14,3 @@ function Header() {
         </header>
     )
 }
-
-export default Header

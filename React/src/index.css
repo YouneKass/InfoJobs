@@ -40,8 +40,6 @@
     line-height: 1.6;
     }
 
-
-
     select {
     padding: 0.625rem 1.25rem;
     background-color: #242d3a;
@@ -67,14 +65,6 @@
         outline-offset: 2px;
     }
     }
-
-
-
-
-
-
-
-
 
     /* Títulos principales */
     h1 {

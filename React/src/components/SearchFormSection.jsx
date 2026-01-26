@@ -1,4 +1,4 @@
-function SearchFormSection() {
+export function SearchFormSection() {
     return (
         <section className="jobs-search">
             <h1>Encuentra tu próximo trabajo</h1>
@@ -52,5 +52,3 @@ function SearchFormSection() {
         </section>
     )
 }
-
-export default SearchFormSection
