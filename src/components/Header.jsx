@@ -3,8 +3,8 @@ export function Header() {
         <header>
             <h2>DevJobs</h2>
             <nav>
-                <a href="">Inicio</a>
-                <a href="">Empleos</a>
+                <a href="/">Inicio</a>
+                <a href="/search">Empleos</a>
             </nav>
 
             <div>
