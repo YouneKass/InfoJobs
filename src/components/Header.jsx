@@ -1,15 +1,16 @@
+import { Link } from "./Link";
+
 export function Header() {
     return(
         <header>
             <h2>DevJobs</h2>
             <nav>
-                <a href="/">Inicio</a>
-                <a href="/search">Empleos</a>
+                <Link href="/">Inicio</Link>
+                <Link href="/search">Empleos</Link>
             </nav>
 
             <div>
-                <a href="">Subir CV</a>
-                <devjobs-avatar></devjobs-avatar>
+                <Link href="">Subir CV</Link>
             </div>
         </header>
     )
