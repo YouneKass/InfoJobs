@@ -1,4 +1,4 @@
-import { useId } from "react"
+import { useId, useState } from "react"
 
 const useSearchForm = ({ idTechnology, idLocation, idExperienceLevel, onSearch, onTextFilter }) => {
     const [searchText, setSearchText] = useState("")
