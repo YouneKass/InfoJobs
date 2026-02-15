@@ -10,6 +10,7 @@ export function Header() {
             </nav>
 
             <div>
+                <Link href="/contact">Contacto</Link> 
                 <Link href="">Subir CV</Link>
             </div>
         </header>
