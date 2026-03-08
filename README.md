@@ -21,16 +21,16 @@ En **[JSCamp.dev](https://jscamp.dev)** encontrarás todos los videos y contenid
 
 ## 📚 Contenido del Bootcamp
 
-00 - HTML & CSS
-01 - JavaScript
-02 - React
-03 - Estado Global y React Router
-04 - Node.js
-05 - TypeScript
-06 - Integración de IA
-07 - SQL
-08 - CI/CD
-09 - Docker
+- **00** - HTML & CSS
+- **01** - JavaScript
+- **02** - React
+- **03** - Estado Global y React Router
+- **04** - Node.js
+- **05** - TypeScript
+- **06** - Integración de IA
+- **07** - SQL
+- **08** - CI/CD
+- **09** - Docker
 
 
 ## 💻 Requisitos de Instalación
