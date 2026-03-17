@@ -1,18 +1,24 @@
+import { Routes, Route } from 'react-router';
 import { Footer } from './components/Footer.jsx'
 import { Header } from "./components/Header.jsx";
 
 import { HomePage } from "./pages/Home.jsx";
 import { SearchPage } from "./pages/Search.jsx";
-import { ContactPage } from './components/Contact.jsx';
-import { Route } from "./components/Route.jsx"
+import { ContactPage } from "./components/Contact.jsx";
+import { NotFoundPage } from "./pages/404.jsx";
+import { JobDetail } from './pages/Detail.jsx';
 
 function App() {
   return (
     <>
       <Header/>
-      <Route path="/" component={HomePage}/>
-      <Route path="/search" component={SearchPage}/>
-      <Route path="/contact" component={ContactPage}/>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/jobs/:id" element={<JobDetail/>} /> 
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
       <Footer/>
     </>
   )
