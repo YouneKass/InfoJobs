@@ -30,7 +30,7 @@ export function JobDetail() {
     }
 
     const buttonClasses = isApplied ? 'button-apply-job is-applied' : 'button-apply-job'
-    const buttonText = isApplied ? 'Aplicado' : 'Aplicar Ahora'
+    const buttonText = isApplied ? 'Aplicado' : 'Aplicar'
 
   const [job, setJob] = useState(null) 
   const [loading, setLoading] = useState(true)
@@ -39,7 +39,9 @@ export function JobDetail() {
   useEffect(() => {
     fetch(`https://jscamp-api.vercel.app/api/jobs/${jobId}`)
       .then(response => {
-        if (!response.ok) throw new Error('Job Not Found')
+        if (!response.ok) {
+          navigate('/not-found')
+        }
           return response.json()
       })
       .then(json => {
@@ -104,7 +106,7 @@ export function JobDetail() {
         </p>
       </header>
 
-      <button className={styles.applyButton} onClick={handleApplyClick}>
+      <button className={buttonClasses} onClick={handleApplyClick}>
         {buttonText}
       </button>
 
