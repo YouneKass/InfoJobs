@@ -24,10 +24,18 @@ export function JobDetail() {
   const { jobId } = useParams()
   const navigate = useNavigate()
 
+  const [isApplied, setIsApplied] = useState(false)
+  const handleApplyClick = () => {
+        setIsApplied(true)
+    }
+
+    const buttonClasses = isApplied ? 'button-apply-job is-applied' : 'button-apply-job'
+    const buttonText = isApplied ? 'Aplicado' : 'Aplicar Ahora'
+
   const [job, setJob] = useState(null) 
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-console.log("params:", useParams())
+
   useEffect(() => {
     fetch(`https://jscamp-api.vercel.app/api/jobs/${jobId}`)
       .then(response => {
@@ -96,8 +104,8 @@ console.log("params:", useParams())
         </p>
       </header>
 
-      <button className={styles.applyButton}>
-        Aplicar ahora
+      <button className={styles.applyButton} onClick={handleApplyClick}>
+        {buttonText}
       </button>
 
       <JobSection title="Descripción del puesto" content={job.content.description} />
