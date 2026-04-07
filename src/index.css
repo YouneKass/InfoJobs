@@ -469,3 +469,8 @@ article {
     color: grey;
     pointer-events: none;
 }
+
+.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

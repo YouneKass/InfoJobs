@@ -40,6 +40,28 @@
   margin-bottom: 2rem;
 }
 
+.breadcrumbList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.breadcrumbList li + li::before {
+  content: '/';
+  margin-right: 0.5rem;
+  color: var(--text-muted);
+}
+
+.breadcrumbLink {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
 .breadcrumbButton {
   background: none;
   border: none;

@@ -85,16 +85,18 @@ export default function JobDetail() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <nav className={styles.breadcrumb}>
-          <Link 
-            href="/search" 
-            className={styles.breadcrumbButton}
-            >
-            Empleos
-          </Link>
-          <span className={styles.breadcrumbSeparator}>/</span>
-          <span className={styles.breadcrumbCurrent}>{job.titulo}</span>
-        </nav>
+        <nav aria-label='Ruta de navegación' className={styles.breadcrumb}>
+          <ol className={styles.breadcrumbList}>
+            <li>
+              <Link href='/search' className={styles.breadcrumbLink}>
+                Empleos
+              </Link>
+            </li>
+            <li aria-current='page' className={styles.breadcrumbCurrent}>
+              {job.titulo}
+            </li>
+          </ol>
+      </nav>
       </div>
 
       <header className={styles.header}>
