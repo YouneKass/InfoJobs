@@ -7,8 +7,8 @@ export function Pagination({ currentPage = 1, totalPages = 10, onPageChange}) {
     const isFirstPage = currentPage === 1
     const isLastPage = currentPage === totalPages
 
-    const stylePrevButton = isFirstPage ? {PointerEvent: 'none', opacity: 0.5} : {}
-    const styleNextButton = isLastPage ? {PointerEvent: 'none', opacity: 0.5} : {}
+    const stylePrevButton = isFirstPage ? { pointerEvents: 'none', opacity: 0.5 } : {}
+    const styleNextButton = isLastPage ? { pointerEvents: 'none', opacity: 0.5 } : {}
 
     const handlePrevClick = (event) => {
         event.preventDefault()
@@ -26,7 +26,7 @@ export function Pagination({ currentPage = 1, totalPages = 10, onPageChange}) {
 
     const handleChangePage = (event) => {
         event.preventDefault()
-        const page = Number(event.target.dataset.page)
+        const page = Number(event.currentTarget.dataset.page)
 
         if (page !== currentPage) {
             onPageChange(page)
@@ -34,14 +34,16 @@ export function Pagination({ currentPage = 1, totalPages = 10, onPageChange}) {
     }
 
     const buildPageUrl = (page) => {
+        const safePage = page < 1 ? 1 : page
         const url = new URL(window.location)
-        url.searchParams.set('page', page)
-        return `${url.pathname}${url.searchParams.toString()}`
+        url.searchParams.set('page', safePage)
+        const search = url.searchParams.toString()
+        return search ? `${url.pathname}?${search}` : url.pathname
     }
 
     return (
         <>
-            <nav className={styles.pagination}>
+            <nav className={styles.pagination} aria-label="Paginación de resultados">
 
                         <a href={buildPageUrl(currentPage - 1)} style={stylePrevButton} onClick={handlePrevClick}>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
@@ -59,6 +61,7 @@ export function Pagination({ currentPage = 1, totalPages = 10, onPageChange}) {
                         data-page={page}
                         href={buildPageUrl(page)}
                         className={currentPage === page ? styles.isActive: ''}
+                        aria-current={currentPage === page ? 'page' : undefined}
                         onClick={handleChangePage}
                     >
                         {page}

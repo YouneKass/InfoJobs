@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router";
 import { Pagination } from "../components/Pagination.jsx";
 import { JobsListings } from "../components/JobsListings.jsx";
 import { SearchFormSection } from "../components/SearchFormSection.jsx";
-import { useRouter } from "../hooks/useRouter.jsx";
 
 const RESULTS_PER_PAGE = 4
 
@@ -22,15 +21,15 @@ const useFilters = () => {
 
     const [currentPage, setCurrentPage] = useState(() =>{
         const page = Number(searchParams.get('page'))
-        return Number.isNaN(page) ? page : 1
+        if (Number.isNaN(page) || page < 1) return 1
+        return page
     })
 
     const [jobs, setJobs] = useState([])
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(true)
-    
-    const { navigateTo } = useRouter()
-    
+
+
     useEffect(() => {
         async function fetchJobs() {
             try{
@@ -66,11 +65,16 @@ const useFilters = () => {
     useEffect(() => {
         setSearchParams((params) =>{
             if (textToFilter) params.set('text', textToFilter)
+                else params.delete('text')
             if (filters.technology) params.set('technology', filters.technology)
+                else params.delete('technology')
             if (filters.location) params.set('type', filters.location)
+                else params.delete('type')
             if (filters.experienceLevel) params.set('level', filters.experienceLevel)
+                else params.delete('level')
 
             if (currentPage > 1) params.set('page', currentPage)
+                else params.delete('page')
 
             return params
         })
@@ -121,9 +125,12 @@ export default function SearchPage() {
 
     const title = loading ? `Cargando... - DevJobs` : `Resultados: ${total}, Página ${currentPage} - DevJobs`
 
+    useEffect(() => {
+        document.title = title
+    }, [title])
+
     return (
         <main>
-            <title>{title}</title>
             <SearchFormSection initialText={textToFilter} onSearch={handleSearch} onTextFilter={handleTextFilter}/>
 
             <section>
@@ -131,7 +138,9 @@ export default function SearchPage() {
                 {
                     loading ? <p>Cargando empleos...</p> : <JobsListings jobs={jobs} />
                 }
-                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+                {totalPages > 1 && (
+                    <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+                )}
             </section>
         </main>
     )
