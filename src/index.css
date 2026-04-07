@@ -464,3 +464,8 @@ article {
     display: block;
     margin: 1rem auto;
 }
+
+.nav-link-active{
+    color: grey;
+    pointer-events: none;
+}

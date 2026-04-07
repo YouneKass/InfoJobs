@@ -20,7 +20,7 @@ function JobSection({ title, content }) {
   )
 }
 
-export function JobDetail() {
+export default function JobDetail() {
   const { jobId } = useParams()
   const navigate = useNavigate()
 
@@ -29,8 +29,8 @@ export function JobDetail() {
         setIsApplied(true)
     }
 
-    const buttonClasses = isApplied ? 'button-apply-job is-applied' : 'button-apply-job'
-    const buttonText = isApplied ? 'Aplicado' : 'Aplicar'
+  const buttonClasses = isApplied ? `${styles.applyButton} ${styles.applied}` : styles.applyButton
+  const buttonText = isApplied ? 'Aplicado' : 'Aplicar'
 
   const [job, setJob] = useState(null) 
   const [loading, setLoading] = useState(true)
@@ -56,7 +56,7 @@ export function JobDetail() {
   }, [jobId])
 
   if (loading){
-    return <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
+    return <div className={styles.page}>
       <div className={styles.loading}>
         <p className={styles.loadingText}>Cargando...</p>
       </div>
@@ -66,7 +66,7 @@ export function JobDetail() {
 
     if (error || !job) {
     return (
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
+      <div className={styles.page}>
         <div className={styles.error}>
           <h2 className={styles.errorTitle}>
             Oferta no encontrada
@@ -83,7 +83,7 @@ export function JobDetail() {
   }
 
   return (
-    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
+    <div className={styles.page}>
       <div className={styles.container}>
         <nav className={styles.breadcrumb}>
           <Link 
@@ -102,18 +102,32 @@ export function JobDetail() {
           {job.titulo}
         </h1>
         <p className={styles.meta}>
-          {job.empresa} · {job.ubicacion}
+          {job.empresa} · {job.ubicacion} · {job.data.nivel}
         </p>
       </header>
 
-      <button className={buttonClasses} onClick={handleApplyClick}>
-        {buttonText}
-      </button>
 
-      <JobSection title="Descripción del puesto" content={job.content.description} />
-      <JobSection title="Responsabilidades" content={job.content.responsibilities} />
-      <JobSection title="Requisitios" content={job.content.requirements} />
-      <JobSection title="Acerca de la empresa" content={job.content.about} />
+
+      <div className={styles.layout}>
+        <main>
+          <JobSection title="Descripción del puesto" content={job.content.description} />
+          <JobSection title="Responsabilidades" content={job.content.responsibilities} />
+          <JobSection title="Requisitos" content={job.content.requirements} />
+          <JobSection title="Acerca de la empresa" content={job.content.about} />
+        </main>
+
+        <aside className={styles.sidebar}>
+          <button className={buttonClasses} onClick={handleApplyClick} disabled={isApplied}>
+            {buttonText}
+          </button>
+          <div className={styles.sidebarCard}>
+            {job.data.technology && <p>🧑‍💻 {job.data.technology.join(', ')}</p>}
+            {job.data.modalidad && <p>🏠 {job.data.modalidad}</p>}
+            {job.data.nivel && <p>🎚️ {job.data.nivel}</p>}
+          </div>
+        </aside>
+      </div>
+      
     </div>
   )
 }

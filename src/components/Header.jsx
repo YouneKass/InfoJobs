@@ -1,17 +1,26 @@
-import { Link } from "./Link";
-
+import { NavLink } from "react-router"
+import { Link } from "./Link"
 export function Header() {
     return(
         <header>
-            <h2>DevJobs</h2>
+            <Link href="/" style={{ textDecoration: 'none' }}>
+                <h1 style={{ color: 'white' }}>
+                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                    DevJobs
+                </h1>
+            </Link>
+
             <nav>
-                <Link href="/">Inicio</Link>
-                <Link href="/search">Empleos</Link>
+                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/">Inicio</NavLink>
+                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/search">Empleos</NavLink>
             </nav>
 
             <div>
-                <Link href="/contact">Contacto</Link> 
-                <Link href="">Subir CV</Link>
+                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/contact">Contacto</NavLink> 
             </div>
         </header>
     )

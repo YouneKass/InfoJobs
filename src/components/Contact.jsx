@@ -1,6 +1,6 @@
 import { useContactForm } from "../hooks/useContactForm"
 
-export function ContactPage() {
+export default function ContactPage() {
   const {
     values,
     errors,

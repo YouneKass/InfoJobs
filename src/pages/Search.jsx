@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useSearchParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import { Pagination } from "../components/Pagination.jsx";
 import { JobsListings } from "../components/JobsListings.jsx";
 import { SearchFormSection } from "../components/SearchFormSection.jsx";
@@ -106,7 +106,7 @@ const useFilters = () => {
     }
 }
 
-export function SearchPage() {
+export default function SearchPage() {
     const {
         jobs,
         total,
