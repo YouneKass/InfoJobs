@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Children } from "react"
 import { useParams, useNavigate } from "react-router"
 import { Link } from "../components/Link"
 import snarkdown from "snarkdown"
@@ -20,17 +20,55 @@ function JobSection({ title, content }) {
   )
 }
 
-export default function JobDetail() {
+function DetailPageBreadCrumb({ job }) {
+  return (
+    <div className={styles.container}>
+        <nav aria-label='Ruta de navegación' className={styles.breadcrumb}>
+          <ol className={styles.breadcrumbList}>
+            <li>
+              <Link href='/search' className={styles.breadcrumbLink}>
+                Empleos
+              </Link>
+            </li>
+            <li aria-current='page' className={styles.breadcrumbCurrent}>
+              {job.titulo}
+            </li>
+          </ol>
+        </nav>
+      </div>
+  )
+}
+
+function DetailPageHeader({ job, children}) {
+  return(
+    <>
+      <header className={styles.header}>
+        <h1 className={styles.title}>
+          {job.titulo}
+        </h1>
+        <p className={styles.meta}>
+          {job.empresa} · {job.ubicacion} · {job.data.nivel}
+        </p>
+      </header>
+
+      {children}
+    </>
+  )
+}
+
+function DetailApplyButton({ isLoggedIn }) {
+  return(
+    <aside className={styles.sidebar}>
+      <button disabled={!isLoggedIn} className={styles.applyButton} >
+        {isLoggedIn ? "Aplicar ahora" : "Iniciar sesión para aplicar"}
+      </button>
+    </aside>
+  )
+}
+
+export default function JobDetail({ isLoggedIn }) {
   const { jobId } = useParams()
   const navigate = useNavigate()
-
-  const [isApplied, setIsApplied] = useState(false)
-  const handleApplyClick = () => {
-        setIsApplied(true)
-    }
-
-  const buttonClasses = isApplied ? `${styles.applyButton} ${styles.applied}` : styles.applyButton
-  const buttonText = isApplied ? 'Aplicado' : 'Aplicar'
 
   const [job, setJob] = useState(null) 
   const [loading, setLoading] = useState(true)
@@ -84,31 +122,9 @@ export default function JobDetail() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.container}>
-        <nav aria-label='Ruta de navegación' className={styles.breadcrumb}>
-          <ol className={styles.breadcrumbList}>
-            <li>
-              <Link href='/search' className={styles.breadcrumbLink}>
-                Empleos
-              </Link>
-            </li>
-            <li aria-current='page' className={styles.breadcrumbCurrent}>
-              {job.titulo}
-            </li>
-          </ol>
-      </nav>
-      </div>
-
-      <header className={styles.header}>
-        <h1 className={styles.title}>
-          {job.titulo}
-        </h1>
-        <p className={styles.meta}>
-          {job.empresa} · {job.ubicacion} · {job.data.nivel}
-        </p>
-      </header>
-
-
+      <DetailPageBreadCrumb job={job} />
+      <DetailPageHeader job={job} />  
+      
 
       <div className={styles.layout}>
         <main>
@@ -119,13 +135,11 @@ export default function JobDetail() {
         </main>
 
         <aside className={styles.sidebar}>
-          <button className={buttonClasses} onClick={handleApplyClick} disabled={isApplied}>
-            {buttonText}
-          </button>
+          <DetailApplyButton isLoggedIn={isLoggedIn} />
           <div className={styles.sidebarCard}>
-            {job.data.technology && <p>🧑‍💻 {job.data.technology.join(', ')}</p>}
+            {job.data.technology && <p>🤖 {job.data.technology.join(', ')}</p>}
             {job.data.modalidad && <p>🏠 {job.data.modalidad}</p>}
-            {job.data.nivel && <p>🎚️ {job.data.nivel}</p>}
+            {job.data.nivel && <p>🧑‍💻 {job.data.nivel}</p>}
           </div>
         </aside>
       </div>
