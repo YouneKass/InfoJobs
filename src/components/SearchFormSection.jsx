@@ -44,7 +44,7 @@ const useSearchForm = ({ idTechnology, idLocation, idExperienceLevel, idText, on
     }
 }
 
-export function SearchFormSection({ onTextFilter, onSearch, initialText }) {
+export function SearchFormSection({ onTextFilter, onSearch, initialText, initialFilters }) {
     const idText = useId()
     const idTechnology = useId()
     const idLocation = useId()
@@ -81,7 +81,7 @@ export function SearchFormSection({ onTextFilter, onSearch, initialText }) {
                 </div>
 
                 <div className="search-filters">
-                    <select name={idTechnology} id="filter-technology">
+                    <select name={idTechnology} id="filter-technology" defaultValue={initialFilters?.technology || ''}>
                         <option value="">Tecnologia</option>
                         <optgroup label="Tecnologías populares">
                             <option value="JavaScript">JavaScript</option>
@@ -98,7 +98,7 @@ export function SearchFormSection({ onTextFilter, onSearch, initialText }) {
                         <option value="Ruby">Ruby</option>
                         <option value="Mobile">Mobile</option>
                     </select>
-                    <select name={idLocation} id="filter-location">
+                    <select name={idLocation} id="filter-location" defaultValue={initialFilters?.location || ''}>
                         <option value="">Ubicación</option>
                         <option value="Remoto">Remoto</option>
                         <option value="Argentina">Argentina</option>
@@ -107,7 +107,7 @@ export function SearchFormSection({ onTextFilter, onSearch, initialText }) {
                         <option value="Estados Unidos">Estados Unidos</option>
                         <option value="cdmx">Ciudad de México</option>
                     </select>
-                    <select name={idExperienceLevel} id="filter-experience-level">
+                    <select name={idExperienceLevel} id="filter-experience-level" defaultValue={initialFilters?.experienceLevel || ''}>
                     <option value="">Nivel de experiencia</option>
                     <option value="Junior">Junior</option>
                     <option value="Mid-level">Mid-level</option>

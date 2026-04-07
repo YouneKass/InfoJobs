@@ -104,6 +104,7 @@ const useFilters = () => {
         totalPages,
         currentPage,
         textToFilter,
+        filters,
         handlePageChange,
         handleSearch,
         handleTextFilter
@@ -118,6 +119,7 @@ export default function SearchPage() {
         totalPages,
         currentPage,
         textToFilter,
+        filters,
         handlePageChange,
         handleSearch,
         handleTextFilter
@@ -131,7 +133,7 @@ export default function SearchPage() {
 
     return (
         <main>
-            <SearchFormSection initialText={textToFilter} onSearch={handleSearch} onTextFilter={handleTextFilter}/>
+            <SearchFormSection initialFilters={filters} initialText={textToFilter} onSearch={handleSearch} onTextFilter={handleTextFilter}/>
 
             <section>
                 <h2 style={{ textAlign: 'center' }}>Resultados de búsqueda</h2>
