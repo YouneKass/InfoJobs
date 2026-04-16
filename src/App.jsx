@@ -11,26 +11,16 @@ const NotFoundPage = lazy(() => import('./pages/404.jsx'))
 const JobDetail = lazy(() => import('./pages/Detail.jsx'))
 
 function App() {
-  const [isLoggedIn, setIsloggedIn] = useState(false)
-
-  const handleLogin = () => {
-    setIsloggedIn(true)
-  }
-
-  const handleLogout = () => {
-    setIsloggedIn(false)
-  }
-
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} onLogin={handleLogin} onLogout={handleLogout} />
+      <Header />
 
       <Suspense fallback={<div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1rem' }}>
         Cargando...</div>}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/jobs/:jobId" element={<JobDetail isLoggedIn={isLoggedIn} />} /> 
+          <Route path="/jobs/:jobId" element={<JobDetail />} /> 
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

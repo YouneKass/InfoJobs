@@ -1,8 +1,9 @@
-import { useState, useEffect, Children } from "react"
+import { useState, useEffect, Children, useContext } from "react"
 import { useParams, useNavigate } from "react-router"
 import { Link } from "../components/Link"
 import snarkdown from "snarkdown"
 import styles from "./Detail.module.css"
+import { AuthContext } from "../context/AuthContext"
 
 function JobSection({ title, content }) {
   const html = snarkdown(content)
@@ -39,7 +40,7 @@ function DetailPageBreadCrumb({ job }) {
   )
 }
 
-function DetailPageHeader({ job, children}) {
+function DetailPageHeader({ job }) {
   return(
     <>
       <header className={styles.header}>
@@ -51,12 +52,13 @@ function DetailPageHeader({ job, children}) {
         </p>
       </header>
 
-      {children}
+      <DetailApplyButton />
     </>
   )
 }
 
-function DetailApplyButton({ isLoggedIn }) {
+function DetailApplyButton() {
+  const { isLoggedIn } = useContext(AuthContext)
   return(
     <aside className={styles.sidebar}>
       <button disabled={!isLoggedIn} className={styles.applyButton} >
@@ -66,7 +68,7 @@ function DetailApplyButton({ isLoggedIn }) {
   )
 }
 
-export default function JobDetail({ isLoggedIn }) {
+export default function JobDetail() {
   const { jobId } = useParams()
   const navigate = useNavigate()
 
@@ -135,7 +137,6 @@ export default function JobDetail({ isLoggedIn }) {
         </main>
 
         <aside className={styles.sidebar}>
-          <DetailApplyButton isLoggedIn={isLoggedIn} />
           <div className={styles.sidebarCard}>
             {job.data.technology && <p>🤖 {job.data.technology.join(', ')}</p>}
             {job.data.modalidad && <p>🏠 {job.data.modalidad}</p>}
