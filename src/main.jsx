@@ -7,10 +7,6 @@ import { FavoritesContext } from './context/FavContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <AuthProvider>
-      <FavoritesContext>
-        <App />
-      </FavoritesContext>
-    </AuthProvider>
+    <App />
   </BrowserRouter>
 )
