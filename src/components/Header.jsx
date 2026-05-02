@@ -1,8 +1,14 @@
 import { NavLink } from "react-router"
 import { Link } from "./Link"
 import { useAuthStore } from "../store/authStore";
+import { useFavoritesStore } from "../store/favoritesStore";
 
 export function Header() {
+    const { isLoggedIn } = useAuthStore()
+    const { countFavorites } = useFavoritesStore()
+
+    const numberOfFavorites = countFavorites()
+
     return(
         <header>
             <Link href="/" style={{ textDecoration: 'none' }}>
@@ -17,8 +23,13 @@ export function Header() {
             </Link>
 
             <nav>
-                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/">Inicio</NavLink>
-                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/search">Empleos</NavLink>
+                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/"> Inicio </NavLink>
+                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/search"> Empleos </NavLink>
+                {
+                    isLoggedIn && (
+                        <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/profile"> Perfil 🧑‍💼 {numberOfFavorites} </NavLink>
+                    )
+                }
             </nav>
 
             
@@ -26,7 +37,7 @@ export function Header() {
             <div>
                 <HeaderUserButton />
 
-                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/contact">Contacto</NavLink> 
+                <NavLink className={({ isActive }) => isActive ? 'nav-link-active' : '' } to="/contact"> Contacto </NavLink> 
             </div>
         </header>
     )
@@ -34,7 +45,8 @@ export function Header() {
 
 const HeaderUserButton = () => {
     const { isLoggedIn, login, logout } = useAuthStore()
+
     return  isLoggedIn
-        ? <button onClick={logout}>Cerrar sesión</button>
-        : <button onClick={login}>Iniciar sesión</button>
+        ? <a onClick={logout} style={{ cursor: 'pointer' }}>Cerrar sesión</a>
+        : <a onClick={login} style={{ cursor: 'pointer' }}>Iniciar sesión</a>
 }

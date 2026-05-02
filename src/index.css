@@ -133,7 +133,13 @@ header div a {
     font-size: 0.875rem;
     font-weight: 700;
     text-decoration: none;
-    /* TODO */
+}
+
+header > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-right: 1rem;
 }
 
 /* Hero */
@@ -425,11 +431,6 @@ article {
     font-weight: bold;
 }
 
-.nav-link-active {
-        color: yellow;
-        pointer-events: none;
-}
-
 /* Formulario Contacto */
 .contacTitle{
     text-align: center;
@@ -471,6 +472,6 @@ article {
 }
 
 .active {
-  font-weight: bold;
-  text-decoration: underline;
+    font-weight: bold;
+    text-decoration: underline;
 }
