@@ -4,6 +4,7 @@ import { Link } from "../components/Link"
 import snarkdown from "snarkdown"
 import styles from "./Detail.module.css"
 import { useAuthStore } from "../store/authStore"
+import { useFavoritesStore } from "../store/favoritesStore"
 
 function JobSection({ title, content }) {
   const html = snarkdown(content)
@@ -52,7 +53,20 @@ function DetailPageHeader({ job }) {
         </p>
       </header>
 
-      <DetailApplyButton />
+      <div className={styles.actions}>
+        <div className={styles.actionsLeft}>
+          <DetailApplyButton />
+          <DetailFavoriteButton jobId={job.id} />
+        </div>
+
+        <div className={styles.sidebar}>
+          <div className={styles.sidebarCard}>
+            {job.data.technology && <p>🤖 {job.data.technology.join(', ')}</p>}
+            {job.data.modalidad && <p>🏠 {job.data.modalidad}</p>}
+            {job.data.nivel && <p>🧑‍💻 {job.data.nivel}</p>}
+          </div>
+        </div>
+      </div>
     </>
   )
 }
@@ -65,6 +79,16 @@ function DetailApplyButton() {
         {isLoggedIn ? "Aplicar ahora" : "Iniciar sesión para aplicar"}
       </button>
     </aside>
+  )
+}
+
+function DetailFavoriteButton ({ jobId }) {
+  const { toggleFavorite, isFavorite } = useFavoritesStore()
+
+  return (
+      <button onClick={() => toggleFavorite(jobId)} aria-label={isFavorite(jobId) ? 'Remove from favorites' : 'Add to favorites'}>
+        {isFavorite(jobId) ? '🧑‍💻' : '🧑‍💼'}
+      </button>
   )
 }
 
@@ -135,16 +159,7 @@ export default function JobDetail() {
           <JobSection title="Requisitos" content={job.content.requirements} />
           <JobSection title="Acerca de la empresa" content={job.content.about} />
         </main>
-
-        <aside className={styles.sidebar}>
-          <div className={styles.sidebarCard}>
-            {job.data.technology && <p>🤖 {job.data.technology.join(', ')}</p>}
-            {job.data.modalidad && <p>🏠 {job.data.modalidad}</p>}
-            {job.data.nivel && <p>🧑‍💻 {job.data.nivel}</p>}
-          </div>
-        </aside>
       </div>
-      
     </div>
   )
 }

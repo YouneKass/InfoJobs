@@ -25,9 +25,8 @@ const useSearchForm = ({ idTechnology, idLocation, idExperienceLevel, idText, on
 
     const handleTextChange = (event) => {
         const text = event.target.value
-        setSearchText(text) // actualizamos el input inmediatamente
+        setSearchText(text) 
 
-        //DEBOUNCE: Cancelar el timeout anterior
         if (timeoutId.current) {
             clearTimeout(timeoutId.current)
         }

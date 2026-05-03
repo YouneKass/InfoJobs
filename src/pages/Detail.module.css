@@ -176,16 +176,38 @@
 }
 
 .sidebar {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: sticky;
+  top: 1.5rem;
+  flex-shrink: 0;
 }
 
 .sidebarCard {
-  margin-top: 1rem;
   border: 1px solid var(--border-color, #e5e7eb);
   border-radius: 0.75rem;
   padding: 1.25rem;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.actionsLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {
