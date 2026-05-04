@@ -45,8 +45,14 @@ export function Header() {
 
 const HeaderUserButton = () => {
     const { isLoggedIn, login, logout } = useAuthStore()
+    const{ clearFavorites } = useFavoritesStore()
+
+    const handleLogout = () => {
+        logout()
+        clearFavorites()
+    }
 
     return  isLoggedIn
-        ? <a onClick={logout} style={{ cursor: 'pointer' }}>Cerrar sesión</a>
+        ? <a onClick={handleLogout} style={{ cursor: 'pointer' }}>Cerrar sesión</a>
         : <a onClick={login} style={{ cursor: 'pointer' }}>Iniciar sesión</a>
 }
