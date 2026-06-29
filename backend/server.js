@@ -1,6 +1,8 @@
 import { createServer } from 'node:http'
 
-const port = 3000
+process.loadEnvFile()
+
+const port = process.env.PORT ?? 3000
 
 const server = createServer((req, res) => {
   res.setHeader('Content-Type', 'text/palin; charset=utf-8')
@@ -8,5 +10,6 @@ const server = createServer((req, res) => {
 })
 
 server.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`)
+  const address = server.address()
+  console.log(`Servidor escuchando en http://localhost:${address.port}`)
 })
