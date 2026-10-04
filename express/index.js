@@ -22,7 +22,8 @@ app.get('/health', (req, res) => {
 })
 
 app.get('/get-jobs', (req, res) => {
-  // Peticion a la base de datos <--
+  const { limit, technology } = req.query
+  console.log({ limit, technology })
   return res.json(jobs)
 })
 
