@@ -22,9 +22,24 @@ app.get('/health', (req, res) => {
 })
 
 app.get('/get-jobs', (req, res) => {
-  const { limit, technology } = req.query
-  console.log({ limit, technology })
-  return res.json(jobs)
+  const { text, title, level, limit, technology, offset } = req.query
+
+  let filteredJobs = jobs
+
+  if (text) {
+    const searchTerm = text.toLowerCase()
+    filteredJobs = filteredJobs.filter(job => 
+      job.titulo.toLowerCase().includes(searchTerm) || job.description.toLowerCase().includes(searchTerm)
+    )
+  }
+
+  if (technology) {
+    filteredJobs = filteredJobs.filter(job =>
+      job.tecnologias.includes(technology)
+    )
+  }
+
+  return res.json(fileredJobs)
 })
 
 app.get('/get-single-job/:id', (req, res) => {
