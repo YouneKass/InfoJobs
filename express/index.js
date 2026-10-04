@@ -3,21 +3,61 @@ import express from 'express'
 const PORT = process.env.PORT ?? 1234
 const app = express()
 
-app.use((request, response, next) => {
+app.use((req, res, next) => {
   const timeString = new Date().toLocaleTimeString()
-  console.log(`[${timeString}] ${request.method} ${request.url}`)  
+  console.log(`[${timeString}] ${req.method} ${req.url}`)  
   next()
 })
 
-app.get('/', (request, response) => {
-  response.send('<h1>Hello world</h1>')
+app.get('/', (req, res) => {
+  return res.send({ message: 'Hello world' })
 })
 
-app.get('/health', (request, response) => {
-  response.json({
+app.get('/health', (req, res) => {
+  return res.json({
     status: 'ok',
     uptime: process.uptime()
   })
+})
+
+app.get('/get-jobs', (req, res) => {
+  return res.json({
+    jobs: [
+      { id: 1, title: 'Frontend Developer' },
+      { id: 2, title: 'Backend Developer' },
+      { id: 3, title: 'Fullstack Developer' }
+    ]
+  })
+})
+
+app.get('/get-single-job/:id', (req, res) => {
+  const { id } = req.params
+
+  const idNumber = Number(id)
+
+  return res.json({
+    job: { id: idNumber, title: `Job with id ${id}` }
+  })
+})
+
+//Opcional -> /acd o /abcd
+app.get('/a{b}cd', (req, res) => {
+  return res.send('abcd o acd')
+})
+
+//comodín
+app.get('/bb*bb', (req, res) => {
+  return res.send('bb*bb')
+})
+
+//Rutas más largas que no sabes como terminan
+app.get('/file/*filename', (req, res) => {
+  return res.send('file/*')
+})
+
+//Usar Regex -> no recomendado
+app.get(/.*fly$/, (req, res) => {
+  return res.send('Terminan con fly')
 })
 
 app.listen(PORT, () => {
