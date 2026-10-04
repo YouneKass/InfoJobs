@@ -1,4 +1,5 @@
 import express from 'express'
+import jobs from './jobs.json' with { type: 'json' } 
 
 const PORT = process.env.PORT ?? 1234
 const app = express()
@@ -21,13 +22,8 @@ app.get('/health', (req, res) => {
 })
 
 app.get('/get-jobs', (req, res) => {
-  return res.json({
-    jobs: [
-      { id: 1, title: 'Frontend Developer' },
-      { id: 2, title: 'Backend Developer' },
-      { id: 3, title: 'Fullstack Developer' }
-    ]
-  })
+  // Peticion a la base de datos <--
+  return res.json(jobs)
 })
 
 app.get('/get-single-job/:id', (req, res) => {
